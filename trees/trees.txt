@@ -1,0 +1,56 @@
+BINARNE STROMY
+
+Reprezentujem ich objektom Tree, ten sa sklada minimalne z jedneho ulza, Node, tento
+sa aj nazyva root.
+V Node definujem value, teda nejaky key, potom rodica a dve deti, lave a prave.
+Vyhladavanie:
+    1. sposob
+    zoberie sa prvy uzol, teda root a porovnava sa hodnota s nim
+        ak pasuje tak mam
+            koncim
+        inak ak je hladana hodnota mensia ako jeho hodnota
+            v dalsom kroku prehladavam jeho lave dieta
+                ak je to dieta None, koncim lebo hodnota nie je v strome
+        inak ak je hladana hodnota vacsia ako jeho hodnota
+            v dalsom kroku porovnavam jeho prave dieta
+                ak je to dieta None, koncim lebo hodnota nie je v strome
+    2. sposob
+    volam funckiu s rootom a hladanou hodnotou
+    ak node.value == value, tak mam, koncim
+    ak value < node.value, 
+        vraciam funckiu s node.left
+    ak value > node.value,
+        vraciam funckiu s node.right
+Vkladanie:
+    Najdem si podla vyhladanie najblizsi None uzol.
+    Rodica nastavim ako posledny blizky uzol.
+    Ak je hodnota v novom prvku vacsia, rodicovi dam odkaz doprava na list, inak vlavo
+Vypisanie:
+    Spravim to rekurzivne.
+    Zavolam fukciu s root ako argument.
+    Pokial to nie je none tak idem
+    najprv zavolam funkciu na jeho laveho syna
+        toto robi az dokym sa lavy synovia nevycerpaju
+    potom vypisem hodnotu v poslednom lavom synovi
+    a zoberiem praveho potomka
+	
+TRIE
+
+Su to stromy do ktorych ukladam text.
+Node obsahuje hodnotu, bool accepting a zoznam deti(pre abecedu 26)
+	hodnota sa udava do Node ktorym konci slovo v strome, taktiez je tento accepting
+Hladanie:
+	Zoberiem si root stromu, tento sluzi ako node
+	Pre kazde jedno pismeno z hladaneho slova:
+		- vypocitaj jeho index
+		- ak dieta na indexe v node.children je None
+			slovo nie je v strome, skonci
+		- alebo
+			node nastav na tento child
+	Ked mi na konci vysiel nejaky node,
+	skontrolujem ci je accepting, teda ci tvori slovo a podla toho vypisem
+
+Vkladanie:
+	Funguje podobne ako hladanie len ked je hladany child None tak vytvori novy child,
+	napoji a odkaze node nan.
+	Na konci nastavi value a accepting
