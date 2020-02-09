@@ -1,0 +1,25 @@
+--- connect over SSH
+ssh pi@192.168.0.xxx
+
+--- copy files over SCP
+scp pi@192.168.0.xxx:/home/pi/Desktop/file.txt C:\Users\branislav\Desktop
+
+--- sh file to take photos
+#!/bin/bash
+
+DATE=$(date +"%H_%M_%S")
+foldername=$(date +"%Y-%m-%d")
+mkdir -p /media/pi/USB\ FLASH\ D/Videos/timelapse_room/"$foldername"
+
+fswebcam -r 1280x720 --no-banner /media/pi/USB\ FLASH\ D/Videos/timelapse_room/"$foldername"/$DATE.jpg
+
+--- crontab table install new
+crontab -e
+* * * * * sleep 5; /home/pi/timelapse.sh 2>&1
+* * * * * python3 /home/pi/CPUtemp.py
+
+--- list images to text file
+ls garden_*.jpg > timelapse.txt
+
+--- create Video
+mencoder -nosound -ovc lavc -lavcopts vcodec=mpeg4:aspect=16/9:vbitrate=8000000 -vf scale=1280:960 -o timelapse.avi -mf type=jpeg:fps=30 mf://@timelapse.txt
