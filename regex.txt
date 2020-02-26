@@ -1,0 +1,57 @@
+. - lubovolny znak okrem znaku noveho riadku
+	m..r - vsetky retazce, ktore zacinaju m a koncia r
+	m\.\.r popisuje retazec m..r
+\d - lubovolna cislica
+	\d\d\d - lubovolne trojciferne cislo
+\D - lubovolny znak okrem cislice
+\s - whitespace znak
+\S - luvolny znak okrem whitespace znaku
+[] - rozsah hodnot
+	[a-z] - male pismena
+	[a-zA-Z0-3] - jeden znak, ktory moze byt male, velke pismeno alebo cislica do 3
+{} - oicet opakovani
+	\d{4} = \d\d\d\d
+	\d{4,7} = dlzka od 4 do 7
+	\d{4,} = dlzka od 4
+* - lubovolny pocet opakovani
+	\d* - lubovlny pocet cislic
++ - to iste ako * ale nenulovy pocet opakovani
+? - volitelnost vyskytu danehho vyrazu
+	dier?ka = dierka alebo diera
+| - OR, oddeluje viacero regexov
+^ - zaciatok popisovaneho retazca
+	VYNIMKA ak je hned za [ = vtedy hovori co tam nemoze byt
+	^[A-C].* - retazce zacinajuce velkym pismenom
+	[^A-Z01] - vsetky retazce okrem velkych pismen a cislic 0 a 1
+	[01^A-Z] - cislice 0 a 1, vsetky velke pismena, znak ^
+$ - koniec regexu
+	.*\.$ - vsetky retazce konciace bodkou
+() - skupina
+	abc* - retazce zacinajuce ab a nasleduje hocikolkokrat *
+	(abc)* - retazec v ktorom sa hocikolkokrat opakuje abc
+\cislo - dokaz na regex
+	skupinu v regexe (a)((b)c(d))
+	skupina		regex
+	0			(a)((b)c(d))
+	1			(a)
+	2			((b)c(d))
+	3			(b)
+	4			(d)
+	
+match() - overenie, ci sa da regex napasovat na vyraz
+search() - najdenie casti textu, ktora odpoveda regexu
+findall() - najdenie vsetkych casti textu, ktore odpovedaju regexu
+replace() - nahradenie casti textu, ktora odpoveda regexu
+split() - rozdelenie textu podla casti, ktore vyhovuju zadanemu regexu
+
+regexy v pythone sa moze pisat s prefixom r, co znamena ze sa python nebude k spatnemu lomitku chovat ako k specialnemu znaku, ale ako k lomitku
+
+import re
+
+match = re.search(r"\d\d\d \d\d", "Moje PSČ je 612 64, PSČ môjho kamaráta je 602 00.")
+print(match.group(0)) # "612 64"
+
+match = re.search(r"^\d\d\d \d\d", "Moje PSČ je 612 64.\n602 00 je PSČ mého kamaráda.", re.MULTILINE)
+print(match) # Match, pretoze druhy riadok zacina PSC 612 64
+match = re.match(r"\d\d\d \d\d", "Moje PSČ je 612 64.\n602 00 je PSČ mého kamaráda.", re.MULTILINE)
+print(match) # None, pretoze match hlada iba od zaciatku retazca aj vo viacriadkovom mode

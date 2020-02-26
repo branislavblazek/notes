@@ -23,3 +23,6 @@ ls garden_*.jpg > timelapse.txt
 
 --- create Video
 mencoder -nosound -ovc lavc -lavcopts vcodec=mpeg4:aspect=16/9:vbitrate=8000000 -vf scale=1280:960 -o timelapse.avi -mf type=jpeg:fps=30 mf://@timelapse.txt
+
+-- record Video
+avconv -f video4linux2 -r 30 -s hd720 -i /dev/video0 -qscale 1 /media/pi/09DE-E6EF/Videos/VideoStream.avi

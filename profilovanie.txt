@@ -1,0 +1,20 @@
+- pomocou modulu time
+
+import time
+
+t0 = time.time()
+#kod
+print(time.time() - t0)
+
+- pomocou cProfile
+
+import cProfile
+
+def my_func():
+	pass
+	
+cProfile.run('my_func()')
+
+cProfile.run('my_func()', filename='my_prof.out') # výsledok uloží do súboru my_prof.out a nič nevypíše
+cProfile.run('my_func()', sort='ncalls') # vytvorí jednoduchý výpis zoradený podľa atribútu ncalls
+python -m cProfile [-o output_file] [-s sort_order] my_file.py
