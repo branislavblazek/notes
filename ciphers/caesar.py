@@ -1,51 +1,58 @@
 class Caesar:
-    def __init__(self):
-        self.alpha_offset = 97
-        self.alphabet = [chr(i + self.alpha_offset) for i in range(26)]
+    def __init__(self, alphabet=None):
+        self.alphabet = [chr(i + 97) for i in range(26)] if alphabet is None else alphabet.lower()
+        self.alpha_len = len(self.alphabet)
 
-    def decode(self, input_text, offset):
-        offset = offset % 26
+    def encode(self, input_text, offset):
+        sign = -1 if offset < 0 else 1
+        offset = abs(offset) % self.alpha_len * sign
 
-        decoded_text = ""
+        encoded_text = ""
         input_text = input_text.lower().rstrip().lstrip()
 
         for letter in input_text:
             try:   
                 index = self.alphabet.index(letter)
             except ValueError:
-                decoded_text += letter
+                encoded_text += letter
                 continue
 
             new_index = index + offset
-            if new_index >= len(self.alphabet):
-                new_index -= len(self.alphabet)
+            if new_index >= self.alpha_len:
+                new_index -= self.alpha_len
+            elif new_index < 0:
+                new_index = self.alpha_len - index - 1
 
-            decoded_text += chr(new_index + self.alpha_offset)
+            encoded_text += self.alphabet[new_index]
 
-        return decoded_text
+        return encoded_text
 
-    def encode(self, input_text, offset):
-        offset = offset % 26
+    def decode(self, input_text, offset):
+        sign = -1 if offset < 0 else 1
+        offset = abs(offset) % self.alpha_len * sign
 
-        encoded_text = ""
+        decoded_text = ""
         input_text = input_text.lower().lstrip().rstrip()
 
         for letter in input_text:
             try:
                 index = self.alphabet.index(letter)
             except ValueError:
-                encoded_text += letter
+                decoded_text += letter
                 continue
 
             new_index = index - offset
             if new_index < 0:
-                new_index = len(self.alphabet) - index - 1
+                new_index = self.alpha_len - index - 1
+            elif new_index >= self.alpha_len:
+                new_index -= self.alpha_len
 
-            encoded_text += chr(new_index + self.alpha_offset)
+            decoded_text += self.alphabet[new_index]
 
-        return encoded_text
+        return decoded_text
 
-cipher = Caesar()
-sprava = cipher.decode('Zacnite s vystahovanim!', 1)
-normal = cipher.encode(sprava, 1)
+cipher = Caesar(" .,?!ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+sprava = cipher.encode("ahoj", 18)
+normal = cipher.decode("P6PYG9Z5IGM25453J", 11)
+print(sprava)
 print(normal)
