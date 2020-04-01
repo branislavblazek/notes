@@ -41,3 +41,4 @@ trie = Trie()
 trie.insert("ahoj", "Hello")
 trie.insert("ab", "ab")
 print(trie.search("ahoj"))
+>>Hello
