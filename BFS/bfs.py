@@ -1,21 +1,15 @@
 import queue
 
 class Vertex:
-    def __init__(self, idnex, neighbours):
+    def __init__(self, neighbours):
         self.neighbours = neighbours
         self.distance = -1
-        self.index = index
         self.seen = False
 
 graf = [[1,2], [0,5], [0,4,3], [2,4], [2,3,5,6,7], [1,4,6], [4,5,8], [4,8], [6,7]]
-vrcholy = []
-
-for index, udaje in enumerate(graf):
-    vrcholy.append(Vertex(index, udaje))
-
+vrcholy = [Vertex(udaje) for udaje in graf]
 start = 0
 end = 8
-
 vrcholy[0].distance = 0
 vrcholy[0].seen = True
 q = queue.Queue()
@@ -32,9 +26,3 @@ while q.qsize() > 0:
         sused.seen = True
 
         q.put(idx)
-
-if vrcholy[end].seen == False:
-    print(-1)
-else:
-    print(vrcholy[end].distance)
-    

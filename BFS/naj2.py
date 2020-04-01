@@ -23,9 +23,7 @@ vrcholy, hrany = map(int, input().split())
 graf = [[] for _ in range(vrcholy)]
 
 for i in range(hrany):
-    a, b = map(int, input().split())
-    a -= 1
-    b -= 1
+    a, b = [int(i) - 1 for i in input().split(' ')]
     graf[a].append(b)
     graf[b].append(a)
 
