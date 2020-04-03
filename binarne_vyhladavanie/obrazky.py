@@ -11,9 +11,12 @@ pokracuj = 1
 while (l - r < 1):
     stred = (l+r)//2
     riadok = 0
-    if stred != 0:
-        for i in range(sady):
+    for i in range(sady):
+        if stred == 0:
+            riadok = 1
+        else:
             riadok += vzory[i] // stred
+
     if riadok >= mriezka:
         l = stred+1
     else:
@@ -22,11 +25,16 @@ while (l - r < 1):
 if pokracuj:
     stred = (l+r)//2
     riadok = 0
-    if stred != 0:
-        for i in range(sady):
+    for i in range(sady):
+        if stred <= 0:
+            riadok = 1
+        else:
             riadok += vzory[i] // stred
 
-    if riadok < mriezka and stred != 0:
-        print(mriezka // stred)
+    if riadok < mriezka:
+        if stred <= 0:
+            print(1)
+        else:
+            print(mriezka // stred)
     else:
         print(stred)

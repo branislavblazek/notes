@@ -18,12 +18,3 @@ class Queue:
             return value
         else:
             return False
-
-q = Queue()
-print(q.get())
-q.put(21)
-q.put(150)
-q.put(15)
-print(q.get())
-print(q.get())
-print(q.get())
