@@ -1,5 +1,8 @@
-vstup = list(input())
-pocet = [int(i) for i in input().split(' ')][0]
+from sys import stdin, stdout
+
+vstup = list(stdin.readline())
+del vstup[-1]
+pocet = [int(i) for i in stdin.readline().split(' ')][0]
 
 #skontroluj ci je symetricky
 je_symetricke = True
@@ -29,4 +32,5 @@ for _ in range(pocet):
             res.append('ano')
             je_symetricke = True
 
-print(*res, sep='\n')
+stdout.write("\n".join(res))
+stdout.write("\n")
