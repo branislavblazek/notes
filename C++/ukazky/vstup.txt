@@ -1,0 +1,5 @@
+ahoj svet
+Toto je krasny vstupny subor.
+Jeho autorom je kto iny nez Branislav Blazek
+2020/05/10
+cau!
