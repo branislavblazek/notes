@@ -1,0 +1,2 @@
+car, auto
+umbrella, dazdnik destnik

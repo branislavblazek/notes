@@ -55,3 +55,5 @@ match = re.search(r"^\d\d\d \d\d", "Moje PSČ je 612 64.\n602 00 je PSČ mého k
 print(match) # Match, pretoze druhy riadok zacina PSC 612 64
 match = re.match(r"\d\d\d \d\d", "Moje PSČ je 612 64.\n602 00 je PSČ mého kamaráda.", re.MULTILINE)
 print(match) # None, pretoze match hlada iba od zaciatku retazca aj vo viacriadkovom mode
+
+.*?(?=abc) - najdi regex ktory zacina abc ale to nezapocita

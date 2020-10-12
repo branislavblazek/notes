@@ -1,28 +1,66 @@
+--- get IP address
+	hostname -I
+
 --- connect over SSH
-ssh pi@192.168.0.xxx
+	ssh pi@192.168.0.xxx
 
 --- copy files over SCP
-scp pi@192.168.0.xxx:/home/pi/Desktop/file.txt C:\Users\branislav\Desktop
+	-from rpi
+	scp pi@192.168.0.xxx:/home/pi/Desktop/file.txt C:\Users\branislav\Desktop
+	-from second PC
+	scp myfile.txt pi@192.168.0.xxx:project/
+	-more files
+	scp myfile.txt myfile2.txt pi@192.168.0.xxx:
+	scp *.txt pi@192.168.0.xxx:
+
+
+--- copy files over SFTP
+	make sure SSH is enabled
+	Open WinSCP, hostname is raspberrypi, password is my password to linux, port is 22, user is pi
+
+--UPDATE SYSTEM
+	sudo apt-get update
+	sudo apt-get upgrade
+	sudo apt-get clean
+
+--NOW ACCOUNT
+	whoami
+--CHANGE PASSWD
+	passwd
+
+
+--INSTALL VISUAL STUDIO CODE
+	wget https://packagecloud.io/headmelted/codebuilds/gpgkey -O - | sudo apt-key add -
+	curl -L https://raw.githubusercontent.com/headmelted/codebuilds/master/docs/installers/apt.sh | sudo bash
 
 --- sh file to take photos
-#!/bin/bash
-
-DATE=$(date +"%H_%M_%S")
-foldername=$(date +"%Y-%m-%d")
-mkdir -p /media/pi/USB\ FLASH\ D/Videos/timelapse_room/"$foldername"
-
-fswebcam -r 1280x720 --no-banner /media/pi/USB\ FLASH\ D/Videos/timelapse_room/"$foldername"/$DATE.jpg
+	#!/bin/bash
+	DATE=$(date +"%H_%M_%S")
+	foldername=$(date +"%Y-%m-%d")
+	mkdir -p /media/pi/USB\ FLASH\ D/Videos/timelapse_room/"$foldername"
+	fswebcam -r 1280x720 --no-banner /media/pi/USB\ FLASH\ D/Videos/timelapse_room/"$foldername"/$DATE.jpg
 
 --- crontab table install new
-crontab -e
-* * * * * sleep 5; /home/pi/timelapse.sh 2>&1
-* * * * * python3 /home/pi/CPUtemp.py
+	crontab -e
+	* * * * * sleep 5; /home/pi/timelapse.sh 2>&1
+	* * * * * python3 /home/pi/CPUtemp.py
 
 --- list images to text file
-ls garden_*.jpg > timelapse.txt
+	ls garden_*.jpg > timelapse.txt
 
 --- create Video
-mencoder -nosound -ovc lavc -lavcopts vcodec=mpeg4:aspect=16/9:vbitrate=8000000 -vf scale=1280:960 -o timelapse.avi -mf type=jpeg:fps=30 mf://@timelapse.txt
+	mencoder -nosound -ovc lavc -lavcopts vcodec=mpeg4:aspect=16/9:vbitrate=8000000 -vf scale=1280:960 -o timelapse.avi -mf type=jpeg:fps=30 mf://@timelapse.txt
 
 -- record Video
-avconv -f video4linux2 -r 30 -s hd720 -i /dev/video0 -qscale 1 /media/pi/09DE-E6EF/Videos/VideoStream.avi
+	avconv -f video4linux2 -r 30 -s hd720 -i /dev/video0 -qscale 1 /media/pi/09DE-E6EF/Videos/VideoStream.avi
+
+--SET STATIC IP ADDRESS
+	sudo nano /etc/dhcpcd.conf
+
+	#interface eth0
+	static ip_address=192.168.0.10/24
+	static routers=192.168.0.1
+	static domain_name_servers=192.168.0.1 8.8.8.8
+
+--SHOW ALL DRIVES CONENCTED VIA USB
+	lsblk

@@ -1,0 +1,144 @@
+import optparse
+import os
+import datetime
+
+def get_args():
+    """
+    Funkcia ziska z prikazove riadku argumenty na chod programu.
+    Vracia argumenty a cesty
+
+    Ziskava ci zobrazit skryte subory, zobrzit datum a cas poslednej upravy,
+    v akom poradi sa maju zobrazit vysledky, sposob prehladavania a ci zobrazit vlelkost suborov.
+    Vyuzitie modulu optparse
+    """
+    usage = "usage: %prog [options] [path1 [path2 [... pathN]]] \n\nPaths are optional, if they are not, program will use the actual folder."
+    parser = optparse.OptionParser(usage=usage)
+    order_choice = ('name', 'n', 'modified', 'm', 'size', 's')
+    parser.add_option('-H', '--hidden', dest='hidden', action='store_true', help='show hidden files [default: %default]')
+    parser.add_option('-m', '--modified', dest='modified', action='store_true', help='show date and time of last modification [default: %default]')
+    parser.add_option('-o', '--order', dest='order', type='choice', choices=order_choice, help='order an output by (' + " ".join(order_choice) + ') [default: %default]')
+    parser.add_option('-R', '--recursive', dest='recursive', action='store_true', help='coming down recursive to subfolders [default: %default]')
+    parser.add_option('-s', '--sizes', dest='sizes', action='store_true', help='show sizes [default: %default]')
+    parser.add_option('-r', '--reverse', dest='reverse', action='store_true', help='show items reversed [default: %default]')
+
+    parser.set_defaults(hidden=False, modified=False, order='name', recursive=False, sizes=False, reverse=False)
+    opts, args = parser.parse_args()
+    return opts, args
+
+def print_data(data_dirs, data_files, opts, count):
+    """
+    Funkcia na vypisanie riadkov
+    """
+    get_time = lambda time_x: datetime.datetime.fromtimestamp(time_x).strftime("%Y-%m-%d %H:%M:%S")
+    print_time = lambda time_value: "{0:>19}".format(time_value)
+    print_size = lambda size_value: "{0:>14}".format(size_value)
+
+    for item in data_dirs:
+        #spracovanie casu
+        time = None
+        #spracovanie velkosti
+        size = None
+        #spracovanie nazvu
+
+        print("{0}{1}{2}".format(time if time else '', size if size else '', item['path']))
+
+    for item in data_files:
+        time = None
+        if opts.modified:
+            time = print_time(get_time(item['modified'])) + ' '
+
+        size = None
+        if opts.sizes:
+            size = print_size(str(item['size'])) + ' '
+
+        print("{0}{1}{2}".format(time if time else '', size if size else '', item['path']))
+
+    len_files = ('any' if count[1] == 0 else str(count[1])) + ' files' if count[1] != 1 else ' file'
+    len_dirs = ('any' if count[0] == 0 else str(count[0])) + ' folders' if count[0] != 1 else ' folder'
+    print(len_files + ', ' + len_dirs)
+
+def get_files(path, recursive, hidden, count):
+    """
+    Funkcia vrati obsah priecinka
+
+    Prvy argument je cesta [string]
+    Druhy argument je vlastnost prehladavanie [string]
+    Treti argument je ci sa maju zobrazit aj skryte subory [bool]
+    """
+    #vetvenie: pokial je recursive False alebo True
+    if not os.path.exists(path):
+        return False
+    dirs_data = []
+    files_data = []
+    if not recursive:
+        show_path = '' if path == os.getcwd() else path + '/'
+        for file in os.listdir(path):
+            #kontrola ci pridat aj hidden
+            if not hidden and file.startswith('.'):
+                continue
+            fullname = os.path.join(path, file)
+            data = {}
+            data['type'] = 'file' if os.path.isfile(fullname) else 'dir'
+            data['path'] = show_path + file + ('' if os.path.isfile(fullname) else '/')
+            data['size'] = os.path.getsize(fullname)
+            data['modified'] = os.path.getmtime(fullname)
+            if os.path.isfile(fullname):
+                files_data.append(data)
+                count[1] += 1
+            else:
+                dirs_data.append(data)
+                count[0] += 1
+    else:
+        shorter = True if path == os.getcwd() else False
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                if file.startswith('.') and not hidden:
+                    continue
+                fullname = os.path.join(root, file)
+                data = {}
+                data['type'] = 'file'
+                data['path'] = fullname.replace(os.getcwd()+'/', '') if shorter else fullname
+                data['size'] = os.path.getsize(fullname)
+                data['modified'] = os.path.getmtime(fullname)
+                files_data.append(data)
+            count[1] += len(files)
+            count[0] += len(dirs)
+
+    return files_data, dirs_data,count
+
+def main():
+    """
+    Hlavna funkcia
+    """
+    #ziskam argumenty
+    opts, args = get_args()
+    #prejdem kazdu jednu path, z kazdej ziskam data
+    if not args:
+        args.append(os.getcwd())
+
+    data_files = []
+    data_dirs = []
+    count = [0,0]
+
+    for path in args:
+        some_data = get_files(path, opts.recursive, opts.hidden, count)
+        data_files += some_data[0]
+        data_dirs += some_data[1]
+        count[0] += some_data[2][0]
+        count[1] += some_data[2][1]
+    #zosortuj data
+    #akym sposobom
+    if opts.order == 's':
+        opts.order = 'size'
+    elif opts.order == 'n' or opts.order == 'name':
+        opts.order = 'path'
+    elif opts.order == 'm':
+        opts.order = 'modified'
+
+    sorted_items_files = sorted(data_files, key=lambda x: x[opts.order], reverse=opts.reverse)
+    sorted_items_dirs = sorted(data_dirs, key=lambda x: x[opts.order], reverse=opts.reverse)
+
+    print_data(sorted_items_dirs, sorted_items_files, opts, count)
+
+if __name__ == "__main__":
+    main()

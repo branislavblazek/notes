@@ -1,0 +1,7 @@
+Zadajte Vaše mená; alebo Ctrl+D(Unix) aleboCtrl+Z(Win) pre ukonèenie
+Meno:Meno:Meno:Meno:Meno:Meno:EOFError
+ahoj, volám sa Branislav
+ahoj, volám sa Tomáš
+ahoj, volám sa ¼udmi¾a
+ahoj, volám sa Zuzana
+ahoj, volám sa Šimon

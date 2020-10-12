@@ -1,0 +1,3 @@
+﻿#ahojsvet
+
+print("ahoj", "svet!")

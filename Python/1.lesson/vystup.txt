@@ -1,0 +1,2 @@
+Zadajte celoèíselné hodnoty a stlaète Enter, v prípade skonèenie stlaète Enter
+èislo: èislo: èislo: èislo: 19 3
