@@ -1,0 +1,73 @@
+pwd - print working directory
+ls - list
+	ls Videos - list all items in Videos folder
+	ls -t - sort by last changed
+	ls --size - sort by size from biggest
+	ls -l - with info
+		drwxr-xr-x
+		d = directory, - = normal file
+	ls -r - reorder sort
+	ls -a - show hidden folders
+	ls -R - show all subfolders&files
+	ls -p dir01/dir02/dir03 - create dir01, insise it dir02, ...
+cd - change directory
+	without argument to /home/branislav
+clear - clear terminal
+mkdir Testfolder - create folder with name
+rmdir Testfolder - remove folder with name
+rm - remove file
+	-rf - even if sometinh is inside
+	-i - ask before removing
+cp - copy
+	cp -r dir1 dir2 - copy dir with files to dir2
+	cp file1 file2 file3 to_dir - copy all 3 files
+	cp -i - will ask if it can overwrite
+mv - move
+	file01 file03 = in same folder - will rename
+	file01 dir01 = move file01 into dir01
+	file01 dir0/test = move file01 into dir0 and will rename to test
+	-i = will ask to overwrite
+	to move dir mv dir01/ /tmp
+man - wil show help
+	/some_command - will find in man
+	n - next
+	N - previous
+whatis - short help for command
+file <filename> - show file type
+touch - create file
+	-t timestamp
+head <filename> - show first ten lines 
+	head -n 4 <filename> - show first 4 lines
+	head -n -4 <filename> - show all lines exclude last 4
+tail - like head but from end
+cat - show content of file
+	cat file1 file2 file3 - show all three files
+	cat file1 file2 > all - concate content of these files into one
+	cat file1 > file2 - copy file1 to file2
+tac is like cat but will display in reversed
+history - show all history of commands
+!! - last command will be executed
+!156 - command in hisotry with number 156 will be executed
+grep - cat <filename> | grep branislav
+grep branislav <filename>
+ -i case insenstive
+ -v show lines where string is not 
+find - find file
+	find . -iname text.txt - find text.txt insensitive in current dir
+date
+cal
+sleep n
+
+gzip bigfile.txt - zip file
+gunzip bigfile.txt.gz - unzip file
+bzip2 a bunzip2 je aj lepsie bigfile.txt.bz2
+
+tar -cf dir.tar dir01 dir02 compress dir01 and 02 into dir.tar
+tar -tf dir.tar - display what is inside dir.tar
+tar -czf dir.tar.gz dir01 dir02 - will compress to dir.tar.gz
+tar -cjf dir.tar.bz2 dir01 dir02 - to dir.tar.bz2
+tar -xf dir.tar.bz2 - extract
+tar -xf dir.tar.gz
+
+zip dir.zip dir01/ dir02/
+unzip dir.zip
