@@ -1,0 +1,35 @@
+ls . list
+	-l . show additional info
+	-1 . show in rows **
+	-h . human readable format
+	-a . view hidden files
+	-A . like -a without . and .. **
+	-F . dir names will have / at the end **
+	-r . in reverse order
+	-R . recursively **
+	-ltr . show latest modificaton file
+	-lS . show by thier size **
+	-U . do not sort
+	--block-size=M . shpow size in Megabytes **
+	-g . do not list owner
+	-G . do not list group names
+	--si . powers of 1024 not 1000 **
+	--sort=time . sort by time
+	--time-style=long-iso . show in long iso
+
+cd . change dir
+	cd - . change to lastly directory (where i was before this)
+	cd /var/v* . change to first dir starting name with v
+	cd 'space name'
+	cd space\ name/
+cd /Downloads && ls
+pushd <path> . saves path to memory and cd to path
+popd . cd to <path> from pushd
+
+touch <filename> . create empty file
+	touch <f1> <f2> <fn> . create empty files
+	-c . do not create if not exists
+	-a . change only access time 
+	-m . change last modification time
+	-r <file> . use stamp from file
+	-t YYYYMMDDhhmm.ss . create stamp for file
