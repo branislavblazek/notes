@@ -25,11 +25,3 @@ cd . change dir
 cd /Downloads && ls
 pushd <path> . saves path to memory and cd to path
 popd . cd to <path> from pushd
-
-touch <filename> . create empty file
-	touch <f1> <f2> <fn> . create empty files
-	-c . do not create if not exists
-	-a . change only access time 
-	-m . change last modification time
-	-r <file> . use stamp from file
-	-t YYYYMMDDhhmm.ss . create stamp for file
