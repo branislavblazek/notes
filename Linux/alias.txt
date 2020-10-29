@@ -1,5 +1,10 @@
+alias df='df -h'
+alias du='du -h --time --time-style=long-iso'
+
 alias l='ls -CF'
 alias la='ls -A'
-alias ll='ls -A1Fvoh --time-style=long-iso --si'
-alias lr='ls -RFoh --time-style=long-iso --si --color=auto'
-alias ls='ls -1Fvoh --time-style=long-iso --si --color=auto'
+alias ll='ls -A1Fvoh --time-style=long-iso'
+alias lr='ls -RFoh --time-style=long-iso --color=auto'
+alias ls='ls -1Fvoh --time-style=long-iso --color=auto'
+
+alias cp='cpg -gR'

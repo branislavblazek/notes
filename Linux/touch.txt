@@ -5,3 +5,19 @@ touch <filename> . create empty file
 	-m . change last modification time
 	-r <file> . use stamp from file
 	-t YYYYMMDDhhmm.ss . create stamp for file
+	
+cat <filename> . show content of file
+	cat <f1> <f2> . show more files
+	cat > <filanem> . write to file
+	cat <f1> > <f2> . write content of f1 to f2
+	cat <f1> >> <f2> . append content of f1 to f2
+	cat <filename> | less/more 
+	-n . show number of lines
+	
+df -h . show files of driver in human-readable
+
+du . show sizes
+	-h . human-readable
+	-a . hidden files
+	-s . summary - all size
+	--exclude="*.txt"

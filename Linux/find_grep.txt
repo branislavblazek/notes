@@ -1,0 +1,25 @@
+find . find files by criteria
+	find . -name ahoj.txt - will find in all subdirs
+	find notes -name alias.txt - will find in notes/
+	find . -iname ahoj.txt - ignore case sensitive
+	find . -iname audio - find for folder
+	find . -type f -name "*.py" - find all py files
+	find . -type f -perm 0777 -print - find files with 777
+	find . -type f ! -perm 777 - find all files without 777
+	find . -type f -name "ahoj.txt" -exec rm -f {} \;
+	find . -type f -name "*.txt" -exec rm -f {} \;
+	find /tmp -type f -empty . find all empty files
+	find /tmp -type d -empty . find all empty dirs
+	
+	find /tmp -type f -name ".*" . find all hidden files
+	find . -mtime 10 . find files modified under 10 days back
+	find . -atime 10 . find files accessed under 10 days back
+	find . -cmin -60 . files changed in the last hour
+	find . -mmin -60 . files modified in the last hour
+	find . -amin -60 . files accessed in the last hour
+	find . -time +50 -mtime -100 . files modified more than 50 days and less than 100 days
+	
+	find . -size 50M . find all 50M files
+	find . -size +50M -size -100M . find files wirh size bewteen
+	find . -type f -size +100M -exec rm -f {} /;
+	find . -type f -name "*.mp3" -size +10M -exec rm {} /;
