@@ -14,6 +14,16 @@ cat <filename> . show content of file
 	cat <filename> | less/more 
 	-n . show number of lines
 	
+head <file> . show first ten lines of file
+	head -n7 <file> . show first 7
+tail <file> . show last ten lines of file
+	
+wc ahojsvet.html . show number on files, numbers of word, number of bytes
+		-l . just lines
+		-w . just words
+		-c . just bytes
+		-m . just characters
+	
 df -h . show files of driver in human-readable
 
 du . show sizes

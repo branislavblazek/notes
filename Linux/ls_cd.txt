@@ -25,3 +25,8 @@ cd . change dir
 cd /Downloads && ls
 pushd <path> . saves path to memory and cd to path
 popd . cd to <path> from pushd
+
+rename 's/\.html$/\.php/' *.html
+	-n . vypise zoznam toho co prepise ale neprepise
+	-v . ako n ale aj prepise
+rename 'y/a-z/A-Z/' *.html

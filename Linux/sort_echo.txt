@@ -1,0 +1,20 @@
+sort text.txt . sort alfhabetically, first capitals, then lowercase
+	sort text.txt > sorted.txt . sort to sorted.txt
+	-k9 . napriklad pri ls -l urci, ze ma sortovat podla 9.teho stlca
+	-n sa pouziva s -k ked sa jedna o ciselne radenie
+	-u . odstrani z vypisu duplikaty a zobrazi len jeden vysledok
+	-M . zoradenie mesiacov
+	-h . pri velkosti - vypise najprv byty, kilobyty,...
+	-c . vrati informaciu o tom ze to je alebo nie je sortnute
+	-f . ignoruje case sensitive
+
+echo ahoj svet . vypise ahoj svet
+	-e . umoznuje pozuivanie \znakov
+		 -n	 do not print the trailing newline.
+		 -e	 enable interpretation of backslash escapes.
+		 \b	 backspace
+		 \\	 backslash
+		 \n	 new line
+		 \r	 carriage return
+		 \t	 horizontal tab
+		 \v	 vertical tab

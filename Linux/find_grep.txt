@@ -23,3 +23,18 @@ find . find files by criteria
 	find . -size +50M -size -100M . find files wirh size bewteen
 	find . -type f -size +100M -exec rm -f {} /;
 	find . -type f -name "*.mp3" -size +10M -exec rm {} /;
+	
+grep <pattern> . look for pattern
+	grep -i python . list all python case insensitive
+		dpkg -l | grep -i python
+	grep -v "#" /etc/apache2/sites/ . return everything without lines starting with #
+		cat .bash_aliases | grep -v "#"
+	find . -name "*.mp3" | grep -i Metallica | grep -vi "remix" 
+		. print all mp3 files from Metallica and not remixes
+	cat <file> | grep -B 4 ahojsvet . display 4lines before match  ahojsvet
+	-A = after, -B = before, -C = either direction
+	ifconfig | grep -c inet . display number of matches
+	cat rockyou.txt | grep -ic branislav
+	grep -n "branislav" rockyou.txt . show number of lines and searched pattern
+	grep -wn "branislav" rockyou.txt . show just branislav, nothing else
+	grep -r ... * . find recursively
